@@ -11,6 +11,6 @@
     "pack:all": "pnpm -r pack"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }
