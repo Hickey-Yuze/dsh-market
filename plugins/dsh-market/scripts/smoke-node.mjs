@@ -7,7 +7,7 @@
  */
 import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import { EventEmitter } from 'node:events'
 import { build } from 'esbuild'
 
@@ -29,7 +29,7 @@ await build({
   logLevel: 'error',
 })
 
-const { listManagedPlugins, setPluginEnabled, uninstallPlugin } = await import(subjectPath)
+const { listManagedPlugins, setPluginEnabled, uninstallPlugin } = await import(pathToFileURL(subjectPath).href)
 
 const installPath = join(workRoot, 'plugin-install.mjs')
 await build({
@@ -41,7 +41,7 @@ await build({
   target: 'node20',
   logLevel: 'error',
 })
-const { isLocalPathSpecifier } = await import(installPath)
+const { isLocalPathSpecifier } = await import(pathToFileURL(installPath).href)
 
 const failures = []
 const check = (name, condition, detail = '') => {

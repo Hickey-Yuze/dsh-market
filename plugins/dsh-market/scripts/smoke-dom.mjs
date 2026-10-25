@@ -6,7 +6,7 @@
  * driven the way a user would drive them — not merely rendered to a string.
  */
 import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import { mkdirSync, rmSync } from 'node:fs'
 import { JSDOM } from 'jsdom'
 import { build } from 'esbuild'
@@ -135,7 +135,7 @@ await build({
 const React = (await import('react')).default
 const { createRoot } = await import('react-dom/client')
 const { act } = await import('react-dom/test-utils')
-const { PluginsPanel } = await import(bundlePath)
+const { PluginsPanel } = await import(pathToFileURL(bundlePath).href)
 
 const translations = {
   'plugins.title': '插件市场',
