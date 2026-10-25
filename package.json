@@ -1,0 +1,16 @@
+{
+  "name": "dsh-market-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "description": "DSH 生态插件合集：技能专区与插件市场",
+  "license": "MIT",
+  "scripts": {
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "check": "pnpm -r check",
+    "pack:all": "pnpm -r pack"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

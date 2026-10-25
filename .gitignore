@@ -1,0 +1,18 @@
+node_modules/
+lib/
+dist/
+coverage/
+
+# build scratch directories used by the smoke scripts
+.smoke-*/
+
+# packed tarballs
+*.tgz
+
+# local debug output
+.dbg-*
+*.log
+
+.DS_Store
+.idea/
+.vscode/

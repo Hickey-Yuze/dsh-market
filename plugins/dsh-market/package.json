@@ -1,0 +1,83 @@
+{
+  "name": "dsh-market",
+  "version": "0.1.0",
+  "description": "技能与插件市场：浏览并安装技能市场的技能包与 DSH 插件",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/client.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-sidebar"
+      ],
+      "external": [
+        "@deepseek-ai/dsh-client-ui-primitives"
+      ],
+      "platform": "web"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "build": "node scripts/clean.mjs && tsdown && vite build --config vite.client.config.ts && tsc -p tsconfig.json --emitDeclarationOnly && tsc -p tsconfig.client.json --emitDeclarationOnly",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.client.json --noEmit",
+    "verify:loader": "node scripts/verify-client-loader.mjs",
+    "verify:exports": "node scripts/verify-package-exports.mjs",
+    "smoke:client": "node scripts/smoke-client.mjs",
+    "smoke:dom": "node scripts/smoke-dom.mjs",
+    "smoke:skills": "node scripts/smoke-skills.mjs",
+    "smoke:loader": "node scripts/smoke-loader.mjs",
+    "smoke:node": "node scripts/smoke-node.mjs",
+    "check": "npm run build && npm run typecheck && npm run verify:exports && npm run verify:loader && npm run smoke:client && npm run smoke:dom && npm run smoke:skills && npm run smoke:loader && npm run smoke:node",
+    "prepack": "npm run check"
+  },
+  "dependencies": {
+    "tar": "^7.4.3",
+    "yauzl": "^3.2.0",
+    "zod": "^4.4.3"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "4.0.4 || 4.0.5-alpha.1",
+    "react": "18.3.1"
+  },
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@deepseek-ai/dsh-client-locale": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-client-ui-layout": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-client-ui-primitives": "0.2.0-rc.2",
+    "@types/jsdom": "^30.0.0",
+    "@types/node": "^24.13.0",
+    "@types/react": "~18.3.1",
+    "@types/react-dom": "~18.3.0",
+    "@types/yauzl": "^3.4.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "esbuild": "^0.28.2",
+    "jsdom": "^30.1.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsdown": "^0.15.6",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.12"
+  }
+}

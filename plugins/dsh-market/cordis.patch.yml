@@ -1,0 +1,9 @@
+# dsh bundle patch: inserts this plugin into a profile's layer stack.
+#
+# The row `id` must not collide with a Desktop-owned Market provider identity
+# (`community-market` and `dsh-market` are reserved row ids). The row `name`
+# must equal the package.json `name`, because the client-module scan matches
+# the nearest manifest name against the Loader specifier.
+- insert:
+    - id: dsh-market-plugin
+      name: 'dsh-market'
